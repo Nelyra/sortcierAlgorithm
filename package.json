@@ -15,13 +15,15 @@
   "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "read": "tsx index.ts"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
     "tsx": "^4.20.6"
   },
   "devDependencies": {
+    "@types/node": "^24.6.2",
     "typescript": "^5.9.3"
   }
 }
