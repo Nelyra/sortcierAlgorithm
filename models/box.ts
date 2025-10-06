@@ -1,4 +1,9 @@
-import { Product } from "./products";
+import { Product } from "./product";
+
+export const enum BoxCapacity {
+    WEIGTH = 12000,
+    VOLUME = 92160
+}
 
 export interface Box { 
     id: number;
