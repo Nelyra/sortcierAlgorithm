@@ -1,0 +1,27 @@
+{
+  "name": "sortcieralgorithm",
+  "version": "1.0.0",
+  "description": "Meow",
+  "homepage": "https://github.com/Nelyra/sortcierAlgorithm#readme",
+  "bugs": {
+    "url": "https://github.com/Nelyra/sortcierAlgorithm/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nelyra/sortcierAlgorithm.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "tsx": "^4.20.6"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
