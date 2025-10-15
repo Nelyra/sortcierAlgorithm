@@ -38,7 +38,15 @@ export function PrintStats() {
     console.log("Average weight by box:", stats.getTotalWeight() / stats.getNumberOfBoxes(), "max:", BoxCapacity.WEIGTH);
     console.log("Average volume per order:", stats.getTotalVolume() / stats.getNumberOfBoxes(), "max:", BoxCapacity.VOLUME);
     console.log("Minimal number of boxes needed:", stats.minimalNumberOfBoxes(), "vs max number of boxes:", stats.getNumberOfBoxes());
-    console.log()
+    console.log("Minimal number of boxes by orders:");
+    const minimalBoxesByOrders = stats.minimalNumberOfBoxesByOrders();
+    const uniqueProductsByOrder = stats.getUniqueProductsByOrder();
+    for (const [order, boxCount] of minimalBoxesByOrders) {
+        const uniqueCount = uniqueProductsByOrder.get(order);
+        console.log(
+            `Order ID: ${order.id} needs at least ${boxCount} boxes and has ${uniqueCount?.size ?? 0} unique products`
+        );
+    }
 }
 
 export function IsCommandArgument(arg: string): boolean {
