@@ -1,5 +1,6 @@
 import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
+import { BoxCapacity } from "../models/box";
 
 export function PrintTest() {
     // console.log("Test Print Function");
@@ -32,10 +33,12 @@ export function PrintFullWarehouse() {
 }
 
 export function PrintStats() {
+    console.log();
     console.log("Warehouse Statistics:");
-    console.log({
-        
-    });
+    console.log("Average weight by box:", stats.getTotalWeight() / stats.getNumberOfBoxes(), "max:", BoxCapacity.WEIGTH);
+    console.log("Average volume per order:", stats.getTotalVolume() / stats.getNumberOfBoxes(), "max:", BoxCapacity.VOLUME);
+    console.log("Minimal number of boxes needed:", stats.minimalNumberOfBoxes(), "vs max number of boxes:", stats.getNumberOfBoxes());
+    console.log()
 }
 
 export function IsCommandArgument(arg: string): boolean {

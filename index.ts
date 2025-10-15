@@ -1,5 +1,5 @@
 import { readInputFile } from './input_read/InputRead';
-import { PrintWarehouse, PrintFullWarehouse, PrintTest, IsCommandArgument } from './utils/PrintUtils';
+import { PrintWarehouse, PrintFullWarehouse, PrintStats, IsCommandArgument } from './utils/PrintUtils';
 
 console.log("Starting the program...");
 
@@ -17,7 +17,7 @@ readInputFile('data/instance_0116_131933_Z1.txt').then(
             PrintWarehouse();
 
         if(IsCommandArgument("--stat"))
-            PrintTest();
+            PrintStats();
 
     }
 ).catch(
