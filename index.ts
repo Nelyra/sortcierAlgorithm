@@ -9,8 +9,8 @@ readInputFile('data/instance_0116_131933_Z1.txt').then(
     () => {
         console.log("Input file read successfully.");
         // Further processing can be done here
-        // PrintWarehouse();
-        PrintTest();
+        PrintWarehouse();
+        // PrintTest();
 
     }
 ).catch(

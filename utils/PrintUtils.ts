@@ -12,12 +12,12 @@ export function PrintTest() {
 export function PrintWarehouse() {
     console.log("Warehouse State:");
     console.log({
-        locationAmount: warehouse.locationAmount,
         productAmount: warehouse.productAmount,
         numberOfProducts: warehouse.products.length,
         numberOfOrders: warehouse.orders.length,
         numberOfTrolleys: warehouse.trolleys.length,
         numberOfShortestPaths: warehouse.shortestPaths.length,
+        locationAmount: warehouse.locationAmount,
         numberOfLocations: warehouse.locations.length,
         departLocation: warehouse.departLocation,
         arrivalLocation: warehouse.arrivalLocation

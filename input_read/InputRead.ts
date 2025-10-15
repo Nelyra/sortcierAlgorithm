@@ -70,16 +70,19 @@ export async function readInputFile(filename: string) {
                 lineCount++;
                 while (lineCount < lines.length && lines[lineCount].trim() !== "") {
                     const locData = lines[lineCount].trim().split(" ");
+                    
+                    // Prevent useless lines
+                    if(Number.isNaN(parseInt(locData[0])) || locData[3] == undefined) {
+                        lineCount++;
+                        continue;
+                    }
+
                     warehouse.locations.push({
                         id: parseInt(locData[0]),
                         x: parseInt(locData[1]),
                         y: parseInt(locData[2]),
                         name: locData[3]
                     });
-
-                    if(locData[3] == undefined) {
-                        console.log(locData);
-                    }
 
                     lineCount++;
                 }
