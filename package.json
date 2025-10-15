@@ -15,8 +15,10 @@
   "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "read": "npx tsx index.ts"
+    "read": "npx tsx index.ts",
+    "debug": "npx tsx index.ts --debug",
+    "full-debug": "npx tsx index.ts --full-debug",
+    "stat": "npx tsx index.ts --stat"
   },
   "dependencies": {
     "fs": "^0.0.1-security",

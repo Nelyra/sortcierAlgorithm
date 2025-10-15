@@ -1,4 +1,5 @@
 import warehouse from "./WarehouseUtils";
+import * as stats from "../algorithms/StatsAlgo";
 
 export function PrintTest() {
     // console.log("Test Print Function");
@@ -28,4 +29,15 @@ export function PrintWarehouse() {
 export function PrintFullWarehouse() {
     console.log("Warehouse State:");
     console.log(JSON.stringify(warehouse, null, 2));
+}
+
+export function PrintStats() {
+    console.log("Warehouse Statistics:");
+    console.log({
+        
+    });
+}
+
+export function IsCommandArgument(arg: string): boolean {
+    return process.argv.slice(2).includes(arg);
 }
