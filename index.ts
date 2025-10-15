@@ -1,5 +1,6 @@
 import { readInputFile } from './input_read/InputRead';
-import { PrintWarehouse, PrintFullWarehouse, PrintStats, IsCommandArgument } from './utils/PrintUtils';
+import { PrintWarehouse, PrintFullWarehouse, PrintStats, PrintTest, IsCommandArgument } from './utils/PrintUtils';
+import { createAlleyChart } from './utils/ChartUtils';
 
 console.log("Starting the program...");
 
@@ -16,8 +17,18 @@ readInputFile('data/instance_0116_131933_Z1.txt').then(
         if(IsCommandArgument("--debug"))
             PrintWarehouse();
 
+        if(IsCommandArgument("--test"))
+            PrintTest();
+
         if(IsCommandArgument("--stat"))
             PrintStats();
+
+        if(IsCommandArgument("--chart"))
+            createAlleyChart().then(() => {
+                console.log("Chart created successfully.");
+            } ).catch(err => {
+                console.error("Error creating chart:", err);
+            });
 
     }
 ).catch(

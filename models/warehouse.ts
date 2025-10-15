@@ -1,3 +1,4 @@
+import { Alley } from "./alley";
 import { Location } from "./location";
 import { Order } from "./order";
 import { Product } from "./product";
@@ -12,6 +13,8 @@ export interface Warehouse {
     trolleys: Trolley[];
     shortestPaths: ShortestPath[];
     locations: Location[];
+    alleys?: Alley[];
     departLocation?: number;
     arrivalLocation?: number;
 }
+
