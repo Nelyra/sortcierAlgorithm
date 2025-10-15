@@ -1,12 +1,23 @@
 import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
+import { binPackingV3 } from "../algorithms/BinPackingV3"
+import { binPackingV4 } from "../algorithms/BinPackingV4"
 import { BoxCapacity } from "../models/box";
 import { setupAlleys } from "./AlleyUtils";
 
 export function PrintTest() {
     console.log("Test Print");
-    for (const alley of warehouse.alleys || []) {
-        console.log(`Alley ${alley.name} (ID: ${alley.id}): Locations: ${alley.locationIds.join(", ")}`);
+    // for (const alley of warehouse.alleys || []) {
+    //     console.log(`Alley ${alley.name} (ID: ${alley.id}): Locations: ${alley.locationIds.join(", ")}`);
+    // }
+    const solution = binPackingV4(warehouse.orders[0], BoxCapacity.WEIGTH, BoxCapacity.VOLUME);
+    for (const colis of solution) {
+        console.log("Colis:");
+        console.log(colis);
+
+        console.log("Total weight:", colis.reduce((sum, product) => sum + product.weight, 0));
+        console.log("Total volume:", colis.reduce((sum, product) => sum + product.volume, 0));
+        console.log(" ")
     }
 }
 
