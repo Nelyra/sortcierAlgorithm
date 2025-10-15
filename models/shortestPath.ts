@@ -1,7 +1,7 @@
 import { Location } from "./location";
 
 export interface ShortestPath {
-    start: Location;
-    end: Location;
+    start: number;
+    end: number;
     distance: number;
 }
