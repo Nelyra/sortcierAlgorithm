@@ -5,3 +5,9 @@ export interface Order {
     maxBoxes: number;
     products: Map<Product, number>;
 }
+
+export interface OrderUnitary {
+    id: number;
+    maxBoxes: number;
+    products: Product[];
+}
