@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as util from "../utils/InputReadUtils"
 import warehouse from "../utils/WarehouseUtils";
 import { Product } from "../models/product.ts";
+import { setupAlleys } from "../utils/AlleyUtils.ts";
 
 
 export let lineCount = 0;
@@ -76,6 +77,10 @@ export async function readInputFile(filename: string) {
                         lineCount++;
                         continue;
                     }
+                    // Remove first and last character if they are quotes
+                    if(locData[3].startsWith('"') && locData[3].endsWith('"')) {
+                        locData[3] = locData[3].substring(1, locData[3].length - 1);
+                    }
 
                     warehouse.locations.push({
                         id: parseInt(locData[0]),
@@ -95,6 +100,8 @@ export async function readInputFile(filename: string) {
 
         lineCount++;
     }
+
+    setupAlleys();
 }
 
 function readOrder(line: string) {

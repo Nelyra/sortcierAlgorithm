@@ -1,14 +1,13 @@
 import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
 import { BoxCapacity } from "../models/box";
+import { setupAlleys } from "./AlleyUtils";
 
 export function PrintTest() {
-    // console.log("Test Print Function");
-    // for(const order of warehouse.orders) {
-    //     console.log(`Order ID: ${order.id}`);
-    // }
-    console.log("Locations:");
-    console.log(warehouse.locations);
+    console.log("Test Print");
+    for (const alley of warehouse.alleys || []) {
+        console.log(`Alley ${alley.name} (ID: ${alley.id}): Locations: ${alley.locationIds.join(", ")}`);
+    }
 }
 
 export function PrintWarehouse() {
@@ -19,6 +18,7 @@ export function PrintWarehouse() {
         numberOfOrders: warehouse.orders.length,
         numberOfTrolleys: warehouse.trolleys.length,
         numberOfShortestPaths: warehouse.shortestPaths.length,
+        numberOfAlleys: warehouse.alleys?.length,
         locationAmount: warehouse.locationAmount,
         numberOfLocations: warehouse.locations.length,
         departLocation: warehouse.departLocation,

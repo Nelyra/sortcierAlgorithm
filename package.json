@@ -21,7 +21,9 @@
     "stat": "npx tsx index.ts --stat"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "fs": "^0.0.1-security",
+    "skia-canvas": "^3.0.8",
     "tsx": "^4.20.6"
   },
   "devDependencies": {
