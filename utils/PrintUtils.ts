@@ -33,19 +33,16 @@ export function PrintTest() {
             }
         }
 
-        console.log(`Box ID: ${box.id} with products:`);
         console.log({
+            box_id: box.id,
             products: Array.from(box.products.entries()).map(([product, quantity]) => ({
                 productId: product.idx,
-                quantity: quantity
+                quantity: quantity,
             })),
-            alleys: alleysInBox
+            alleys: alleysInBox,
+            totalWeight: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.weight * quantity, 0),
+            totalVolume: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.volume * quantity, 0),
         })
-
-
-
-        console.log("Total weight:", Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.weight * quantity, 0));
-        console.log("Total volume:", Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.volume * quantity, 0));
     }
 
     warehouse.trolleys.push(trolley);

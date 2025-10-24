@@ -69,10 +69,9 @@ export function AlgoTournee(order: Order)
         if (resultatFinal.length <= nbColisLocal && resultatFinal.length > 0) {
             solutionTrouvee = true;
 
-            const pushResult: Box[] = [];
             for (const colis of resultatFinal) {
                 const box: Box = {
-                    id: pushResult.length,
+                    id: warehouse.optimalBoxes.length,
                     maxVolume: BoxCapacity.VOLUME,
                     maxWeight: BoxCapacity.WEIGTH,
                     products: new Map<Product, number>()
@@ -80,10 +79,9 @@ export function AlgoTournee(order: Order)
                 for (const product of colis) {
                     box.products.set(product, (box.products.get(product) || 0) + 1);
                 }
-                pushResult.push(box);
+                warehouse.optimalBoxes.push(box)
             }
 
-            warehouse.optimalBoxes.push(...pushResult);
             return resultatFinal;
         }
     }
