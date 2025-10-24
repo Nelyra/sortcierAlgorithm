@@ -2,6 +2,8 @@ import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
 import { binPackingV3 } from "../algorithms/BinPackingV3"
 import { binPackingV4 } from "../algorithms/BinPackingV4"
+import { AlgoTournee } from "../algorithms/AlgoTournee";
+import { AlgoTrolley } from "../algorithms/AlgoTrolley";
 import { Box, BoxCapacity } from "../models/box";
 import { setupAlleys } from "./AlleyUtils";
 import { Trolley } from "../models/trolley";
@@ -96,4 +98,12 @@ export function GetCommandArgumentValue(arg: string): string | null {
         }
     }
     return null;
+}
+
+export function PrintTrolley()
+{
+    //On recupere l'ensemble des colis produit par AlgoTournee
+    const RepartitionColis = AlgoTrolley(warehouse.orders[0], warehouse.trolleys[0]);
+    //Affichage de la repartition de colis
+    console.log("Repartition de colis : ", RepartitionColis);
 }

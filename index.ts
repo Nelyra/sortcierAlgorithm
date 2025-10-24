@@ -1,6 +1,6 @@
 import { readInputFile } from './input_read/InputRead';
 import { writeOutputFile } from './output/OutputWriter'
-import { PrintWarehouse, PrintFullWarehouse, PrintStats, PrintTest, IsCommandArgument, GetCommandArgumentValue } from './utils/PrintUtils';
+import { PrintWarehouse, PrintFullWarehouse, PrintStats, PrintTest, IsCommandArgument, GetCommandArgumentValue, PrintTrolley } from './utils/PrintUtils';
 import { createAlleyChart } from './utils/ChartUtils';
 
 console.log("Starting the program...");
@@ -38,6 +38,8 @@ async function main() {
                 } ).catch(err => {
                     console.error("Error creating chart:", err);
                 });
+            if(IsCommandArgument("--trolley"))
+                PrintTrolley();
         }
     ).catch(
         err => {
