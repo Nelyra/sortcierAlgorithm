@@ -14,7 +14,7 @@ export async function writeOutputFile(filename: string) {
     output.write(`${warehouse.trolleys.length}\n`);
 
     for (const trolley of warehouse.trolleys) {
-        output.write("//IdTournes NbColiss\n");
+        output.write("//IdTournes NbColis\n");
         output.write(`${trolley.id} ${trolley.boxes.length}\n`);
 
         output.write("//IdColis IdCommandeInColis NbProducts IdProd1 QtyProd1 IdProd2 QtyProd2 ...\n")

@@ -6,6 +6,7 @@ const warehouse: Warehouse = {
     orders: [],
     products: [],
     trolleys: [],
+    optimalBoxes: [],
     shortestPaths: [],
     locations: []
 };

@@ -2,19 +2,16 @@ import { Order, OrderUnitary } from "../models/order";
 import { Product } from "../models/product";
 import { getUnitaryOrder } from "../utils/ProductsUtils";
 
-export function binPackingV4(order: Order, seuilPoids: number, seuilVolume: number)
+export function binPackingV4(products: Product[], seuilPoids: number, seuilVolume: number)
 {
-    //idem que V3 mais avec Poids + Volume
-    let unitaryOrder = getUnitaryOrder(order);
-
     // Réarrangement de la commande du plus lourd au plus léger
-    unitaryOrder.products.sort((a, b) => (b.weight / seuilPoids) * (b.volume / seuilVolume) - (a.weight / seuilPoids) * (a.volume / seuilVolume));
+    products.sort((a, b) => (b.weight / seuilPoids) * (b.volume / seuilVolume) - (a.weight / seuilPoids) * (a.volume / seuilVolume));
     
     let listeColis = [];
     let colis: Product[] = [];
     let i=0;
     listeColis.push(colis);
-    while (i <unitaryOrder.products.length){
+    while (i < products.length){
 
         for (let j=0; j < listeColis.length; j++)
         {
@@ -26,15 +23,15 @@ export function binPackingV4(order: Order, seuilPoids: number, seuilVolume: numb
                 volumeTotal += listeColis[j][k].volume;
             }
         
-            if (poidsTotal + unitaryOrder.products[i].weight <= seuilPoids && volumeTotal + unitaryOrder.products[i].volume <= seuilVolume) {
-                listeColis[j].push(unitaryOrder.products[i]);
+            if (poidsTotal + products[i].weight <= seuilPoids && volumeTotal + products[i].volume <= seuilVolume) {
+                listeColis[j].push(products[i]);
             } else {
                 let newColis = [];
-                newColis.push(unitaryOrder.products[i]);
+                newColis.push(products[i]);
                 listeColis.push(newColis);
             }
             i++;
-            if (i == unitaryOrder.products.length) {
+            if (i == products.length) {
                 return listeColis;
             }
         }
