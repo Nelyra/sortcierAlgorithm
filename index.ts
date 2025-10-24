@@ -6,7 +6,8 @@ import { createAlleyChart } from './utils/ChartUtils';
 console.log("Starting the program...");
 
 async function main() {
-    await readInputFile('data/instance_0116_131933_Z1.txt').then(
+    const file = 'instance_0116_131933_Z1';
+    await readInputFile('data/' + file + '.txt').then(
         () => {
             console.log("Input file read successfully.");
             // Further processing can be done here
@@ -37,7 +38,7 @@ async function main() {
         }
     );
 
-    await writeOutputFile('output/instance_0116_131933_Z1_sol.txt');
+    await writeOutputFile('data/' + file + '_sol.txt');
 }
 
 main();
