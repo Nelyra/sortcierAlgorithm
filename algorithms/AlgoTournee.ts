@@ -1,7 +1,29 @@
 import { Order, OrderUnitary } from "../models/order";
 import { Product } from "../models/product";
 import { getUnitaryOrder } from "../utils/ProductsUtils";
+// ================== OPTIMISATION ==================
+function opti(articles) {
+    let resultatTotal = [];
+    while (articles.length > 0) {
+        const lots = binPackingV2(articles, SeuilPoids, seuilVolume);
+        if (!lots || lots.length === 0) break;
 
+        const BestLot = lots[0];
+        resultatTotal.push(BestLot);
+
+        for (let nomProduit of BestLot.nom) {
+            articles = articles.filter(a => a.nom !== nomProduit);
+        }
+    }
+    return resultatTotal;
+}
+// ================== FILTRAGE PAR RANGÉE ==================
+
+function getProduitsParAllee(cmd, allees) {
+    if (!Array.isArray(allees)) allees = [allees];
+    const alleesNum = allees.map(a => Number(a));
+    return cmd.filter(produit => alleesNum.includes(Number(produit.row)));
+}
 export function AlgoTournee(order: Order, seuilPoids: number, seuilVolume: number)
 {
     let resultatfinal = [];
