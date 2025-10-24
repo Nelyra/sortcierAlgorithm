@@ -1,22 +1,31 @@
 import { Order, OrderUnitary } from "../models/order";
 import { binPackingV4 } from "./BinPackingV4"
-import { BoxCapacity } from "../models/box"
-import Warehouse from "../utils/WarehouseUtils"
-import {  Product } from "../models/product";
+import { Box, BoxCapacity } from "../models/box"
+import warehouse from "../utils/WarehouseUtils"
+import { Product } from "../models/product";
 import { getUnitaryOrder } from "../utils/ProductsUtils";
+import { Alley } from "../models/alley";
+import { getProductFromAlley } from "../utils/AlleyUtils";
 
 // ================== OPTIMISATION ==================
-function opti(articles) {
+function opti(articles: Product[]): Product[][] {
     let resultatTotal = [];
     while (articles.length > 0) {
-        const lots = binPackingV4(articles, BoxCapacity.WEIGTH , BoxCapacity.VOLUME);
-        if (!lots || lots.length === 0) break;
+        // Find the best possible box arrangements
+        const possibleBoxes = binPackingV4(articles, BoxCapacity.WEIGTH , BoxCapacity.VOLUME);
 
-        const BestLot = lots[0];
-        resultatTotal.push(BestLot);
+        // If no box can be formed, exit the loop
+        if (!possibleBoxes || possibleBoxes.length === 0) return resultatTotal;
 
-        for (let nomProduit of BestLot.nom) {
-            articles = articles.filter(a => a.nom !== nomProduit);
+        const best = possibleBoxes[0];
+        resultatTotal.push(best);
+
+        // Remove the selected products from the articles list
+        for (const prod of best) {
+            const index = articles.indexOf(prod);
+            if (index > -1) {
+                articles.splice(index, 1);
+            }
         }
     }
     return resultatTotal;
@@ -24,44 +33,63 @@ function opti(articles) {
 
 // ================== FILTRAGE PAR RANGÉE ==================
 
-function getProduitsParAllee(cmd, allees) {
-    if (!Array.isArray(allees)) allees = [allees];
-    const alleesNum = allees.map(a => Number(a));
-    return cmd.filter(produit => alleesNum.includes(Number(produit.row)));
-}
-
 export function AlgoTournee(order: Order)
 {
-    let resultatfinal = [];
-    const nbAllee = Warehouse.alleys.length;
+    let resultatFinal = [];
+    const nbAllee = warehouse.alleys?.length;
     const nbColisLocal = order.maxBoxes;
     let solutionTrouvee = false;
 
+    if (!nbAllee || warehouse.alleys?.length === 0) {
+        return;
+    }
+
+    // We try different group sizes of alleys
     for (let groupSize = 1; groupSize <= nbAllee; groupSize++) {
-        resultatfinal = [];
+        resultatFinal = [];
 
         for (let start = 1; start <= nbAllee; start += groupSize) {
-            let alleesBloc = [];
+            let alleesBloc: Alley[] = [];
             for (let i = start; i < start + groupSize && i <= nbAllee; i++) {
-                alleesBloc.push(i);
+                alleesBloc.push(warehouse.alleys![i - 1]);
             }
 
-            const articles = getProduitsParAllee(order, alleesBloc);
-            const articleOpti = opti(articles);
+            // Get products in the selected alleys
+            const articles = getProductFromAlley(order, alleesBloc);
+            const articleOpti: Product[][] = opti(articles);
 
+            // Add optimized boxes to the final result
             if (articleOpti.length !== 0) {
-                articleOpti.forEach(l => l.allees = alleesBloc.slice());
-                resultatfinal.push(...articleOpti);
+                // Add the optimized boxes to the final result
+                resultatFinal.push(...articleOpti);
             }
         }
 
-        if (resultatfinal.length <= nbColisLocal && resultatfinal.length > 0) {
+        // Check if the current arrangement meets the box limit
+        if (resultatFinal.length <= nbColisLocal && resultatFinal.length > 0) {
             solutionTrouvee = true;
-            return resultatfinal;
+
+            const pushResult: Box[] = [];
+            for (const colis of resultatFinal) {
+                const box: Box = {
+                    id: pushResult.length,
+                    maxVolume: BoxCapacity.VOLUME,
+                    maxWeight: BoxCapacity.WEIGTH,
+                    products: new Map<Product, number>()
+                }
+                for (const product of colis) {
+                    box.products.set(product, (box.products.get(product) || 0) + 1);
+                }
+                pushResult.push(box);
+            }
+
+            warehouse.optimalBoxes.push(...pushResult);
+            return resultatFinal;
         }
     }
 
     if (!solutionTrouvee) {
+        console.log(`No solution found within the box limit of ${nbColisLocal}. Using the best found solution with ${resultatFinal.length} boxes.`);
     }
-    return resultatfinal;
+    return resultatFinal;
 }

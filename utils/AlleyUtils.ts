@@ -1,4 +1,8 @@
+import { Alley } from "../models/alley";
+import { Order, OrderUnitary } from "../models/order";
+import { Product } from "../models/product";
 import warehouse from "./WarehouseUtils";
+import { getUnitaryOrder } from "./ProductsUtils"
 
 export function setupAlleys() {
     if(warehouse.alleys === undefined) {
@@ -22,6 +26,21 @@ export function setupAlleys() {
 
         alley.locationIds.push(location.id);
     }
+}
+
+export function getProductFromAlley(order: Order, alley: Alley[]): Product[] {
+
+    const unitaryOrder: OrderUnitary = getUnitaryOrder(order);
+
+    let productsInAlley: Product[] = [];
+    for (const product of unitaryOrder.products) {
+        const productAlleyName = getAlleyFromLocation(product.location);
+        if (alley.some(a => a.name === productAlleyName)) {
+            productsInAlley.push(product);
+        }
+    }
+
+    return productsInAlley;
 }
 
 function getAlleyFromLocation(locationId: number) {
