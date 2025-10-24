@@ -18,7 +18,8 @@
     "read": "npx tsx index.ts",
     "debug": "npx tsx index.ts --debug",
     "full-debug": "npx tsx index.ts --full-debug",
-    "stat": "npx tsx index.ts --stat"
+    "stat": "npx tsx index.ts --stat",
+    "test": "npx tsx index.ts --test"
   },
   "dependencies": {
     "chart.js": "^4.5.1",
