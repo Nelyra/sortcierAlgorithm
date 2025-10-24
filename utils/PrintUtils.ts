@@ -1,21 +1,12 @@
 import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
-import { binPackingV3 } from "../algorithms/BinPackingV3"
-import { binPackingV4 } from "../algorithms/BinPackingV4"
 import { AlleyBlockAlgorithmV1 } from "../algorithms/AlleyBlocksV1"
-import { Box, BoxCapacity } from "../models/box";
-import { setupAlleys } from "./AlleyUtils";
-import { Trolley } from "../models/trolley";
-import { Product } from "../models/product";
+import { TrolleyAllocationRaw } from "../algorithms/TrolleyAllocationRaw";
+import { BoxCapacity } from "../models/box";
 import { Alley } from "../models/alley";
 
 export function PrintTest() {
     console.log("Test Print");
-
-    const trolley: Trolley = {
-        id: 0,
-        boxes: []
-    }
 
     for(const order of warehouse.orders) {
         // console.log(`Processing Order ID: ${order.id} with max boxes: ${order.maxBoxes}`);
@@ -24,7 +15,7 @@ export function PrintTest() {
     
     PrintOptimalBoxes();
 
-    warehouse.trolleys.push(trolley);
+    TrolleyAllocationRaw();
 }
 
 export function PrintWarehouse() {
