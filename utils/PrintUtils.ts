@@ -2,7 +2,7 @@ import warehouse from "./WarehouseUtils";
 import * as stats from "../algorithms/StatsAlgo";
 import { binPackingV3 } from "../algorithms/BinPackingV3"
 import { binPackingV4 } from "../algorithms/BinPackingV4"
-import { AlgoTournee } from "../algorithms/AlgoTournee"
+import { AlleyBlockAlgorithmV1 } from "../algorithms/AlleyBlocksV1"
 import { Box, BoxCapacity } from "../models/box";
 import { setupAlleys } from "./AlleyUtils";
 import { Trolley } from "../models/trolley";
@@ -19,31 +19,10 @@ export function PrintTest() {
 
     for(const order of warehouse.orders) {
         // console.log(`Processing Order ID: ${order.id} with max boxes: ${order.maxBoxes}`);
-        const boxes = AlgoTournee(order);
+        AlleyBlockAlgorithmV1(order);
     }
-
-    for (const box of warehouse.optimalBoxes) {
-        const alleysInBox: Alley[] = [];
-
-        // Push alleys corresponding to products in the box
-        for (const product of box.products.keys()) {
-            const alley = warehouse.alleys?.find(a => a.locationIds.includes(product.location));
-            if (alley && !alleysInBox.includes(alley)) {
-                alleysInBox.push(alley);
-            }
-        }
-
-        console.log({
-            box_id: box.id,
-            products: Array.from(box.products.entries()).map(([product, quantity]) => ({
-                productId: product.idx,
-                quantity: quantity,
-            })),
-            alleys: alleysInBox,
-            totalWeight: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.weight * quantity, 0),
-            totalVolume: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.volume * quantity, 0),
-        })
-    }
+    
+    PrintOptimalBoxes();
 
     warehouse.trolleys.push(trolley);
 }
@@ -84,6 +63,31 @@ export function PrintStats() {
         console.log(
             `Order ID: ${order.id} needs at least ${boxCount} boxes and has ${uniqueCount?.size ?? 0} unique products`
         );
+    }
+}
+
+export function PrintOptimalBoxes() {
+    for (const box of warehouse.optimalBoxes) {
+        const alleysInBox: Alley[] = [];
+
+        // Push alleys corresponding to products in the box
+        for (const product of box.products.keys()) {
+            const alley = warehouse.alleys?.find(a => a.locationIds.includes(product.location));
+            if (alley && !alleysInBox.includes(alley)) {
+                alleysInBox.push(alley);
+            }
+        }
+
+        console.log({
+            box_id: box.id,
+            products: Array.from(box.products.entries()).map(([product, quantity]) => ({
+                productId: product.idx,
+                quantity: quantity,
+            })),
+            alleys: alleysInBox,
+            totalWeight: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.weight * quantity, 0),
+            totalVolume: Array.from(box.products.entries()).reduce((sum, [product, quantity]) => sum + product.volume * quantity, 0),
+        })
     }
 }
 

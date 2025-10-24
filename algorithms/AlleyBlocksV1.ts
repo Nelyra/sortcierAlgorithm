@@ -1,14 +1,13 @@
-import { Order, OrderUnitary } from "../models/order";
+import { Order } from "../models/order";
 import { binPackingV4 } from "./BinPackingV4"
 import { Box, BoxCapacity } from "../models/box"
 import warehouse from "../utils/WarehouseUtils"
 import { Product } from "../models/product";
-import { getUnitaryOrder } from "../utils/ProductsUtils";
 import { Alley } from "../models/alley";
 import { getProductFromAlley } from "../utils/AlleyUtils";
 
 // ================== OPTIMISATION ==================
-function opti(articles: Product[]): Product[][] {
+function findOptimalBox(articles: Product[]): Product[][] {
     let resultatTotal = [];
     while (articles.length > 0) {
         // Find the best possible box arrangements
@@ -33,7 +32,7 @@ function opti(articles: Product[]): Product[][] {
 
 // ================== FILTRAGE PAR RANGÉE ==================
 
-export function AlgoTournee(order: Order)
+export function AlleyBlockAlgorithmV1(order: Order)
 {
     let resultatFinal = [];
     const nbAllee = warehouse.alleys?.length;
@@ -56,7 +55,7 @@ export function AlgoTournee(order: Order)
 
             // Get products in the selected alleys
             const articles = getProductFromAlley(order, alleesBloc);
-            const articleOpti: Product[][] = opti(articles);
+            const articleOpti: Product[][] = findOptimalBox(articles);
 
             // Add optimized boxes to the final result
             if (articleOpti.length !== 0) {
