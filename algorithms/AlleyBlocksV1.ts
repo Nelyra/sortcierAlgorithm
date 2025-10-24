@@ -73,7 +73,8 @@ export function AlleyBlockAlgorithmV1(order: Order)
                     id: warehouse.optimalBoxes.length,
                     maxVolume: BoxCapacity.VOLUME,
                     maxWeight: BoxCapacity.WEIGTH,
-                    products: new Map<Product, number>()
+                    products: new Map<Product, number>(),
+                    orderId: order.id
                 }
                 for (const product of colis) {
                     box.products.set(product, (box.products.get(product) || 0) + 1);
