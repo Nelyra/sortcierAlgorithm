@@ -20,28 +20,6 @@ async function main() {
     await readInputFile('data/' + file + '.txt').then(
         () => {
             console.log("Input file read successfully.");
-            // Further processing can be done here
-
-            if(IsCommandArgument("--full-debug"))
-                PrintFullWarehouse();
-            
-            if(IsCommandArgument("--debug"))
-                PrintWarehouse();
-
-            if(IsCommandArgument("--test"))
-                PrintTest();
-
-            if(IsCommandArgument("--stat"))
-                PrintStats();
-
-            if(IsCommandArgument("--chart"))
-                createAlleyChart().then(() => {
-                    console.log("Chart created successfully.");
-                } ).catch(err => {
-                    console.error("Error creating chart:", err);
-                });
-            if(IsCommandArgument("--trolley"))
-                PrintTrolley();
         }
     ).catch(
         err => {

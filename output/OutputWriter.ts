@@ -28,8 +28,6 @@ export async function writeOutputFile(filename: string) {
             output.write (`\n`)
         }
     }
-    
-
 
     output.end();
 
