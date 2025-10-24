@@ -1,11 +1,15 @@
 import { Order, OrderUnitary } from "../models/order";
-import { Product } from "../models/product";
+import { binPackingV4 } from "./BinPackingV4"
+import { BoxCapacity } from "../models/box"
+import Warehouse from "../utils/WarehouseUtils"
+import {  Product } from "../models/product";
 import { getUnitaryOrder } from "../utils/ProductsUtils";
+
 // ================== OPTIMISATION ==================
 function opti(articles) {
     let resultatTotal = [];
     while (articles.length > 0) {
-        const lots = binPackingV2(articles, SeuilPoids, seuilVolume);
+        const lots = binPackingV4(articles, BoxCapacity.WEIGTH , BoxCapacity.VOLUME);
         if (!lots || lots.length === 0) break;
 
         const BestLot = lots[0];
@@ -17,6 +21,7 @@ function opti(articles) {
     }
     return resultatTotal;
 }
+
 // ================== FILTRAGE PAR RANGÉE ==================
 
 function getProduitsParAllee(cmd, allees) {
@@ -24,11 +29,12 @@ function getProduitsParAllee(cmd, allees) {
     const alleesNum = allees.map(a => Number(a));
     return cmd.filter(produit => alleesNum.includes(Number(produit.row)));
 }
-export function AlgoTournee(order: Order, seuilPoids: number, seuilVolume: number)
+
+export function AlgoTournee(order: Order)
 {
     let resultatfinal = [];
-    const nbAllee = NbAlleeMax;
-    const nbColisLocal = NbColis;
+    const nbAllee = Warehouse.alleys.length;
+    const nbColisLocal = order.maxBoxes;
     let solutionTrouvee = false;
 
     for (let groupSize = 1; groupSize <= nbAllee; groupSize++) {
@@ -40,7 +46,7 @@ export function AlgoTournee(order: Order, seuilPoids: number, seuilVolume: numbe
                 alleesBloc.push(i);
             }
 
-            const articles = getProduitsParAllee(commande, alleesBloc);
+            const articles = getProduitsParAllee(order, alleesBloc);
             const articleOpti = opti(articles);
 
             if (articleOpti.length !== 0) {
@@ -50,14 +56,12 @@ export function AlgoTournee(order: Order, seuilPoids: number, seuilVolume: numbe
         }
 
         if (resultatfinal.length <= nbColisLocal && resultatfinal.length > 0) {
-            afficherResultats(resultatfinal, groupSize);
             solutionTrouvee = true;
             return resultatfinal;
         }
     }
 
     if (!solutionTrouvee) {
-        afficherResultats([], 0);
     }
     return resultatfinal;
 }
