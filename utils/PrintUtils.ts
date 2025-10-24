@@ -12,8 +12,9 @@ export function PrintTest() {
     // }
     const solution = binPackingV4(warehouse.orders[0], BoxCapacity.WEIGTH, BoxCapacity.VOLUME);
     for (const colis of solution) {
-        console.log("Colis:");
-        console.log(colis);
+        for (const product of colis) {
+            console.log(`Product ID: ${product.idx}, Weight: ${product.weight}, Volume: ${product.volume}, Alley: ${warehouse.alleys?.find(alley => alley.locationIds.includes(product.location))?.id || "Unknown"}`);
+        }
 
         console.log("Total weight:", colis.reduce((sum, product) => sum + product.weight, 0));
         console.log("Total volume:", colis.reduce((sum, product) => sum + product.volume, 0));
