@@ -40,7 +40,6 @@ export function PrintTest() {
     }
 
     warehouse.trolleys.push(trolley);
-    console.log("Trolley:", JSON.stringify(trolley, null, 2));
 }
 
 export function PrintWarehouse() {
@@ -83,5 +82,18 @@ export function PrintStats() {
 }
 
 export function IsCommandArgument(arg: string): boolean {
-    return process.argv.slice(2).includes(arg);
+    // Check if the arg starts with the argument
+    return process.argv.slice(2).some(a => a.startsWith(arg));
+}
+
+export function GetCommandArgumentValue(arg: string): string | null {
+    // Find the argument that starts with the specified arg
+    const argument = process.argv.slice(2).find(a => a.startsWith(arg));
+    if (argument) {
+        const parts = argument.split("=");
+        if (parts.length === 2) {
+            return parts[1];
+        }
+    }
+    return null;
 }
