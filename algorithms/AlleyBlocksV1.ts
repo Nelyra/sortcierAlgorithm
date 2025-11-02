@@ -71,6 +71,7 @@ export function AlleyBlockAlgorithmV1(order: Order)
             for (const colis of resultatFinal) {
                 const box: Box = {
                     id: warehouse.optimalBoxes.length,
+                    orderId: order.id,
                     maxVolume: BoxCapacity.VOLUME,
                     maxWeight: BoxCapacity.WEIGTH,
                     products: new Map<Product, number>()
@@ -89,4 +90,34 @@ export function AlleyBlockAlgorithmV1(order: Order)
         console.log(`No solution found within the box limit of ${nbColisLocal}. Using the best found solution with ${resultatFinal.length} boxes.`);
     }
     return resultatFinal;
+}
+
+ export function AlleyBlockAlgorithmV2(order: Order)
+{
+    //transformer order.products en tableau de produits
+    const articles = Array.from(order.products.keys()).map(p => ({
+    ...p,
+    orderId: order.id
+    }));
+
+    const articleOpti = binPackingV4(articles, BoxCapacity.WEIGTH , BoxCapacity.VOLUME);
+    //console.log("articleOpti", articleOpti);
+
+    if (articleOpti.length !== 0) {
+        // Add the optimized boxes to the final result
+        for (const colis of articleOpti) {
+            const box: Box = {
+                id: warehouse.optimalBoxes.length,
+                orderId: order.id,
+                maxVolume: BoxCapacity.VOLUME,
+                maxWeight: BoxCapacity.WEIGTH,
+                products: new Map<Product, number>()
+            }
+            for (const product of colis) {
+                box.products.set(product, (box.products.get(product) || 0) + 1);
+            }
+            warehouse.optimalBoxes.push(box)
+        }
+    }
+    //console.log("warehouse.optimalBoxes", warehouse.optimalBoxes);
 }
