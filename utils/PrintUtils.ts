@@ -99,8 +99,3 @@ export function GetCommandArgumentValue(arg: string): string | null {
     }
     return null;
 }
-
-export function PrintTrolley()
-{
-    AlgoTrolley(warehouse.orders);
-}
