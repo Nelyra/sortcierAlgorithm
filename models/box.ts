@@ -7,7 +7,6 @@ export const enum BoxCapacity {
 
 export interface Box { 
     id: number;
-    orderId: number;
     maxWeight: number;
     maxVolume: number;
     products: Map<Product, number>;

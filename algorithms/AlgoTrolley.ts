@@ -1,16 +1,8 @@
-import { Order, OrderUnitary } from "../models/order";
-import { binPackingV4 } from "./BinPackingV4"
-import { AlleyBlockAlgorithmV1, AlleyBlockAlgorithmV2 } from "./AlleyBlocksV1";
-import { BoxCapacity } from "../models/box"
+import { Order } from "../models/order";
+import { AlleyBlockAlgorithmV1 } from "./AlleyBlocksV1";
 import { Box } from "../models/box";
-import Warehouse from "../utils/WarehouseUtils"
-import {  Product } from "../models/product";
-import { getUnitaryOrder } from "../utils/ProductsUtils";
-import { Trolley, TROLLEY_CAPACITY } from "../models/trolley";
-import {getProductFromAlley} from "../utils/AlleyUtils"
-import { Alley } from "../models/alley";
+import { TROLLEY_CAPACITY } from "../models/trolley";
 import warehouse from "../utils/WarehouseUtils";
-import { count } from "console";
 
 
 export function countCommonItems(arr1 : number[], arr2 : number[]) {
@@ -27,7 +19,7 @@ export function countCommonItems(arr1 : number[], arr2 : number[]) {
 export function AlgoTrolley(orders: Order[]) {
     
     for (const order of orders) {
-        const RepartitionColis = AlleyBlockAlgorithmV1(order);
+        AlleyBlockAlgorithmV1(order);
     }
 
     const optimalBoxes = warehouse.optimalBoxes.slice(0);

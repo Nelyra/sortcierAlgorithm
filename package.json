@@ -16,8 +16,6 @@
   "main": "index.ts",
   "scripts": {
     "read": "npx tsx index.ts",
-    "debug": "npx tsx index.ts --debug",
-    "full-debug": "npx tsx index.ts --full-debug",
     "stat": "npx tsx index.ts --stat",
     "test": "npx tsx index.ts --test",
     "all-files": "npx tsx index.ts --all-files"
