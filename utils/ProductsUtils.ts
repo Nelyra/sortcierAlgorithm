@@ -1,3 +1,4 @@
+import { Box } from "../models/box";
 import { Order, OrderUnitary } from "../models/order";
 
 export function getUnitaryOrder(order: Order): OrderUnitary {
@@ -14,4 +15,14 @@ export function getUnitaryOrder(order: Order): OrderUnitary {
     }
 
     return getUnitaryOrder;
+}
+
+export function getWeightAndVolume(box: Box): { totalWeight: number, totalVolume: number } {
+    let totalWeight = 0;
+    let totalVolume = 0;
+    for (const [product, quantity] of box.products) {
+        totalWeight += product.weight * quantity;
+        totalVolume += product.volume * quantity;
+    }
+    return { totalWeight, totalVolume };
 }
