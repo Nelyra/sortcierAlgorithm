@@ -10,6 +10,8 @@ export let lines: string[] = [];
 
 export async function readInputFile(filename: string) {
     const file = fs.readFileSync(filename, "utf-8");
+
+    lineCount = 0;
     lines = file.split("\n");
 
     while (lineCount < lines.length) {

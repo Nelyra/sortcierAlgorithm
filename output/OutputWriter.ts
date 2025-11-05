@@ -33,5 +33,5 @@ export async function writeOutputFile(filename: string) {
 
     output.end();
 
-    console.log(`Output written to ${filename}`);
+    console.log(`Output written to ${filename}\n`);
 }

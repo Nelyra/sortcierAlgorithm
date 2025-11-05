@@ -14,18 +14,19 @@ console.log("Starting the program...");
 async function main(file: string = 'instance_0116_131933_Z1') {
     console.log("Using input file:", file);
 
-    resetWarehouse();
+    await resetWarehouse();
     
     // Reading part
     await readInputFile('data/' + file + '.txt').then(
         () => {
-            console.log("Input file read successfully.");
+            console.log(warehouse.orders.length + " orders loaded.");
         }
     ).catch(
         err => {
             console.error("Error reading input file:", err);
         }
     );
+
 
     try {
         AlgoTrolley(warehouse.orders);
@@ -69,7 +70,6 @@ if(IsCommandArgument("--all-files")) {
         const inputFiles = files.filter(file => file.endsWith('.txt') && !file.endsWith('_sol.txt'));
         for (const file of inputFiles) {
             const filePath = path.join('data', file);
-            console.log(`\nProcessing file: ${filePath}`);
             await main(file.replace('.txt', ''));
         }
     });
