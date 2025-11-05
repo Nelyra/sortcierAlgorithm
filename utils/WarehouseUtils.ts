@@ -1,3 +1,4 @@
+import { Order } from "../models/order";
 import { Warehouse } from "../models/warehouse";
 
 const warehouse: Warehouse = {
