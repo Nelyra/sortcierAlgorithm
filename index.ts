@@ -4,7 +4,7 @@ import path from 'path';
 import { readInputFile } from './input_read/InputRead';
 import { writeOutputFile } from './output/OutputWriter'
 import { PrintWarehouse, PrintFullWarehouse, PrintStats, PrintTest, IsCommandArgument, GetCommandArgumentValue } from './utils/PrintUtils';
-import { createAlleyChart } from './utils/ChartUtils';
+import { createAllCharts } from './utils/ChartUtils';
 import { AlgoTrolley } from './algorithms/AlgoTrolley';
 import warehouse from './utils/WarehouseUtils';
 import { resetWarehouse } from './utils/WarehouseUtils';
@@ -49,9 +49,7 @@ async function main(file: string = 'instance_0116_131933_Z1') {
         PrintStats();
 
     if(IsCommandArgument("--chart"))
-        createAlleyChart().then(() => {
-            console.log("Chart created successfully.");
-        } ).catch(err => {
+        createAllCharts().catch(err => {
             console.error("Error creating chart:", err);
         });
 
