@@ -1,7 +1,9 @@
 import { BubbleController, Chart, LinearScale, PointElement } from "chart.js"
 import fsp from 'fs/promises';
 import { Canvas } from "skia-canvas";
+
 import { alleyChart } from "../charts/alleyChart";
+import { boxChart } from "../charts/boxChart";
 
 Chart.register([
     BubbleController,
@@ -11,6 +13,7 @@ Chart.register([
 
 export async function createAllCharts() {
     await createChart(alleyChart, 'alley_chart');
+    await createChart(boxChart, 'box_chart');
 
     console.log("All charts created successfully.");
 }
