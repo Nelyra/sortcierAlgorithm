@@ -7,18 +7,14 @@ import { PrintWarehouse, PrintFullWarehouse, PrintStats, PrintTest, IsCommandArg
 import { createAlleyChart } from './utils/ChartUtils';
 import { AlgoTrolley } from './algorithms/AlgoTrolley';
 import warehouse from './utils/WarehouseUtils';
+import { resetWarehouse } from './utils/WarehouseUtils';
 
 console.log("Starting the program...");
 
 async function main(file: string = 'instance_0116_131933_Z1') {
-    // Check for --file argument
-    if(IsCommandArgument("--file") && !IsCommandArgument("--all-files")) {
-        file = GetCommandArgumentValue("--file")!;
-        console.log("Using input file:", file);
-    } else {
-        console.log("No input file specified, using default:", file);
-    }
+    console.log("Using input file:", file);
 
+    resetWarehouse();
     
     // Reading part
     await readInputFile('data/' + file + '.txt').then(

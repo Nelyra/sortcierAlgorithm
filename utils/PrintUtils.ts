@@ -4,7 +4,6 @@ import { AlleyBlockAlgorithmV1 } from "../algorithms/AlleyBlocksV1"
 import { TrolleyAllocationRaw } from "../algorithms/TrolleyAllocationRaw";
 import { Alley } from "../models/alley";
 import { BoxCapacity } from "../models/box";
-import { AlgoTrolley } from "../algorithms/AlgoTrolley";
 
 export function PrintTest() {
     console.log("Test Print");
