@@ -10,7 +10,7 @@ export function setupAlleys() {
     }
     
     for(const location of warehouse.locations) {
-        const alleyName = getAlleyFromLocation(location.id);   
+        const alleyName = getAlleyNameFromLocation(location.id);   
 
         if(alleyName == "depotStart" || alleyName == "depotEnd") continue;
 
@@ -34,7 +34,7 @@ export function getProductFromAlley(order: Order, alley: Alley[]): Product[] {
 
     let productsInAlley: Product[] = [];
     for (const product of unitaryOrder.products) {
-        const productAlleyName = getAlleyFromLocation(product.location);
+        const productAlleyName = getAlleyNameFromLocation(product.location);
         if (alley.some(a => a.name === productAlleyName)) {
             productsInAlley.push(product);
         }
@@ -43,8 +43,13 @@ export function getProductFromAlley(order: Order, alley: Alley[]): Product[] {
     return productsInAlley;
 }
 
-function getAlleyFromLocation(locationId: number) {
+function getAlleyNameFromLocation(locationId: number) {
     const locationName = warehouse.locations[locationId].name;
     // Assuming name is aC_aC_name and aC_aC is the alley name
     return locationName.split('_').slice(0, 2).join('_');
+}
+
+function getAlleyFromLocation(locationId: number): Alley | undefined {
+    const alleyName = getAlleyNameFromLocation(locationId);
+    return warehouse.alleys?.find(a => a.name === alleyName);
 }

@@ -101,8 +101,5 @@ export function GetCommandArgumentValue(arg: string): string | null {
 
 export function PrintTrolley()
 {
-    //On recupere l'ensemble des colis produit par AlgoTournee
-    const RepartitionColis = AlgoTrolley(warehouse.orders[0], warehouse.trolleys[0]);
-    //Affichage de la repartition de colis
-    console.log("Repartition de colis : ", RepartitionColis);
+    AlgoTrolley(warehouse.orders);
 }
