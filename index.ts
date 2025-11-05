@@ -6,7 +6,8 @@ import { createAlleyChart } from './utils/ChartUtils';
 console.log("Starting the program...");
 
 async function main() {
-    let file = 'instance_0116_131948_Z2';
+    let file = 'instance_0116_131933_Z1';
+    let version: string | null = "2";
 
     // Check for --file argument
     if(IsCommandArgument("--file")) {
@@ -41,7 +42,10 @@ async function main() {
                     console.error("Error creating chart:", err);
                 });
             if(IsCommandArgument("--trolley"))
-                PrintTrolley();
+                version = GetCommandArgumentValue("--trolley");
+                let version_number = parseInt(version!);
+                PrintTrolley(version_number);
+                
         }
     ).catch(
         err => {

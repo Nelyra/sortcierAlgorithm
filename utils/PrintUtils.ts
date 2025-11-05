@@ -5,6 +5,7 @@ import { TrolleyAllocationRaw } from "../algorithms/TrolleyAllocationRaw";
 import { Alley } from "../models/alley";
 import { BoxCapacity } from "../models/box";
 import { AlgoTrolley } from "../algorithms/AlgoTrolley";
+import { AlgoTrolleyV2 } from "../algorithms/AlgoTrolleyV2";
 
 export function PrintTest() {
     console.log("Test Print");
@@ -100,7 +101,15 @@ export function GetCommandArgumentValue(arg: string): string | null {
     return null;
 }
 
-export function PrintTrolley()
+export function PrintTrolley(version: number)
 {
-    AlgoTrolley(warehouse.orders);
+    if(version=== 1)
+    {
+        console.log("Debut AlgoTrolleyV1");
+        AlgoTrolley(warehouse.orders);
+    }
+    if(version === 2){
+        AlgoTrolleyV2(warehouse.orders);
+        console.log("Debut AlgoTrolleyV2");
+    }
 }
