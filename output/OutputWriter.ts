@@ -20,7 +20,7 @@ export async function writeOutputFile(filename: string) {
         output.write("//IdColis IdCommandeInColis NbProducts IdProd1 QtyProd1 IdProd2 QtyProd2 ...\n")
         for (const box of trolley.boxes) {
             output.write (`${box.id}`)
-            output.write (` ${box.orderId}`);
+            output.write (` ${box.orderId}`)
             output.write (` ${box.products.size}`)
             for (const [product, quantity] of box.products.entries()) {
                 output.write (` ${product.idx} ${quantity}`)

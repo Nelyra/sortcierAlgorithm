@@ -6,7 +6,7 @@ import { createAlleyChart } from './utils/ChartUtils';
 console.log("Starting the program...");
 
 async function main() {
-    let file = 'instance_0116_131933_Z1';
+    let file = 'instance_0116_131948_Z2';
 
     // Check for --file argument
     if(IsCommandArgument("--file")) {

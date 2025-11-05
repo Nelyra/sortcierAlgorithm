@@ -1,6 +1,6 @@
 import { Order, OrderUnitary } from "../models/order";
 import { binPackingV4 } from "./BinPackingV4"
-import { AlleyBlockAlgorithmV1 } from "./AlleyBlocksV1";
+import { AlleyBlockAlgorithmV1, AlleyBlockAlgorithmV2 } from "./AlleyBlocksV1";
 import { BoxCapacity } from "../models/box"
 import { Box } from "../models/box";
 import Warehouse from "../utils/WarehouseUtils"
@@ -24,8 +24,12 @@ export function countCommonItems(arr1 : number[], arr2 : number[]) {
   return count;
 }
 
-export function AlgoTrolley(order: Order) {
-    const RepartitionColis = AlleyBlockAlgorithmV1(order);
+export function AlgoTrolley(orders: Order[]) {
+    
+    for (const order of orders) {
+        const RepartitionColis = AlleyBlockAlgorithmV1(order);
+    }
+
     const optimalBoxes = warehouse.optimalBoxes.slice(0);
     const RepartitionColisJSON: { box: Box, idAlleys: number[] }[] = [];
     
@@ -90,10 +94,6 @@ export function AlgoTrolley(order: Order) {
         warehouse.trolleys.push(trolley); 
         idTrolley++;
     }
-    console.log("Trolleys : ", warehouse.trolleys);
-    
-    /*console.log("Colis Trolley 1: ", warehouse.trolleys[0].boxes);
-    console.log("Colis Trolley 2: ", warehouse.trolleys[1].boxes);
-    */
+
     return;
 }
