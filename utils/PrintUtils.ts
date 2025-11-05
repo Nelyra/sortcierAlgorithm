@@ -3,7 +3,6 @@ import * as stats from "../algorithms/StatsAlgo";
 import { AlleyBlockAlgorithmV1 } from "../algorithms/AlleyBlocksV1"
 import { TrolleyAllocationRaw } from "../algorithms/TrolleyAllocationRaw";
 import { Alley } from "../models/alley";
-import { AlgoTrolley } from "../algorithms/AlgoTrolley";
 import { BoxCapacity } from "../models/box";
 
 export function PrintTest() {

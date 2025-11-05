@@ -11,4 +11,5 @@ export interface Box {
     maxWeight: number;
     maxVolume: number;
     products: Map<Product, number>;
+    orderId? : number;
 }
