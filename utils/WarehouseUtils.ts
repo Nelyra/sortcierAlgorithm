@@ -14,9 +14,16 @@ const warehouse: Warehouse = {
 export default warehouse;
 
 export function resetWarehouse(): Warehouse {
+    warehouse.locationAmount = 0;
+    warehouse.productAmount = 0;
+    warehouse.orders = [];
     warehouse.products = [];
     warehouse.trolleys = [];
     warehouse.shortestPaths = [];
     warehouse.locations = [];
+    warehouse.alleys = [];
+    warehouse.optimalBoxes = [];
+    warehouse.departLocation = undefined;
+    warehouse.arrivalLocation = undefined;
     return warehouse;
 }
