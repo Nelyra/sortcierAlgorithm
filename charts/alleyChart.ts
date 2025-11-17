@@ -1,6 +1,7 @@
 import warehouse from "../utils/WarehouseUtils";
 import { Chart } from "chart.js"
 import { Canvas } from "skia-canvas";
+import { writeObjectToFile } from "../utils/ChartUtils";
 
 
 const COLORS = [
@@ -41,6 +42,8 @@ function getDataset() {
             backgroundColor: getNextColor(),
         });
     }
+
+    writeObjectToFile(datasets, 'alley_chart_datasets');
 
     return datasets;
 }

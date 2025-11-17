@@ -1,0 +1,20 @@
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+    
+    $.getJSON("output/alley_chart_datasets.json", function(datasets) {
+
+        const myChart = new Chart(document.getElementById('myChart'), {
+            type: 'bubble',
+            data: {
+                datasets: datasets
+            },
+        });
+    });
+
+</script>

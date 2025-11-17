@@ -23,3 +23,8 @@ async function createChart(chartFunction: (canvas: Canvas) => Chart = alleyChart
     await fsp.writeFile(`output/${outputFile}.png`, pngBuffer);
     chart.destroy();
 }
+
+export function writeObjectToFile(obj: any, filename: string) {
+    const jsonString = JSON.stringify(obj, null, 2);
+    return fsp.writeFile(`output/${filename}.json`, jsonString);
+}
